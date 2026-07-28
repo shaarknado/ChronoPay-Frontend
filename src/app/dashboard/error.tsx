@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { DashboardShell } from "../components/dashboard-shell";
 import { EmptyStateIllustration } from "../components/empty-state-illustration";
 
-export function DashboardError({
+export default function DashboardError({
   error,
   reset,
 }: {
@@ -62,5 +62,3 @@ export function DashboardError({
     </DashboardShell>
   );
 }
-
-export default DashboardError;

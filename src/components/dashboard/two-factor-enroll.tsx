@@ -26,7 +26,14 @@ export default function TwoFactorEnroll({ onComplete }: { onComplete?: () => voi
     setStep('success');
   };
 
-  const Button = ({ children, onClick, disabled = false, className = '' }: any) => (
+  interface ButtonProps {
+    children: React.ReactNode;
+    onClick?: () => void;
+    disabled?: boolean;
+    className?: string;
+  }
+
+  const Button = ({ children, onClick, disabled = false, className = '' }: ButtonProps) => (
     <button
       onClick={onClick}
       disabled={disabled}

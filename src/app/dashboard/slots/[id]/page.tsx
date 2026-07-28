@@ -3,6 +3,7 @@
 import { use, useState, useCallback, useEffect, useRef } from "react";
 import Link from "next/link";
 import { DashboardShell } from "@/app/components/dashboard-shell";
+import { FocusTrap } from "@/components/common/FocusTrap";
 import { StatusChip } from "@/components/dashboard/status-chip";
 import { slots as mockSlots } from "@/components/dashboard/dashboard-data";
 import { ReceiptModal } from "@/components/receipt";
@@ -135,6 +136,7 @@ export default function SlotDetailPage({
 
   // RECEIPT STATE (only meaningful once the transaction has settled)
   const [isReceiptOpen, setIsReceiptOpen] = useState(false);
+  const [calendarAdded, setCalendarAdded] = useState(false);
   const isSettled = purchaseStep === "success" && txHash !== "";
 
   const receipt: ReceiptData | null = isSettled
@@ -636,7 +638,13 @@ export default function SlotDetailPage({
               tabIndex={-1}
               role="dialog"
               aria-modal="true"
-              aria-labelledby="modal-headline"
+              aria-labelledby={
+                purchaseStep === "loading"
+                  ? "modal-headline-loading"
+                  : purchaseStep === "success"
+                  ? "modal-headline-success"
+                  : "modal-headline"
+              }
               className="w-full max-w-md rounded-3xl border border-white/12 bg-slate-900 p-6 sm:p-8 shadow-2xl relative focus:outline-none animate-scale-up"
             >
               
@@ -725,7 +733,7 @@ export default function SlotDetailPage({
                   </div>
                   
                   <div className="space-y-2">
-                    <h3 id="modal-headline" className="text-lg font-bold text-white">
+                    <h3 id="modal-headline-loading" className="text-lg font-bold text-white">
                       Stellar Blockchain Syncing
                     </h3>
                     <p className="text-xs text-slate-400 max-w-xs mx-auto h-8 flex items-center justify-center">
@@ -751,7 +759,7 @@ export default function SlotDetailPage({
                     <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-400/10 text-emerald-400 border border-emerald-400/20">
                       <Check className="h-6 w-6" />
                     </div>
-                    <h3 id="modal-headline" className="text-xl font-bold text-white flex items-center justify-center gap-1.5">
+                    <h3 id="modal-headline-success" className="text-xl font-bold text-white flex items-center justify-center gap-1.5">
                       Time Token Purchased
                       <Sparkles className="h-4 w-4 text-cyan-300 shrink-0" />
                     </h3>
@@ -793,10 +801,21 @@ export default function SlotDetailPage({
                   <div className="flex flex-col gap-2.5">
                     <button
                       type="button"
-                      onClick={() => alert("Simulated Calendar Link: Dynamic Google Calendar invite dispatched successfully.")}
-                      className="w-full flex items-center justify-center rounded-full font-bold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 px-4 py-2.5 text-xs border border-cyan-400/30 bg-cyan-400/10 text-cyan-100 hover:bg-cyan-400/20"
+                      onClick={() => {
+                        setCalendarAdded(true);
+                        announce("Booking added to calendar.");
+                      }}
+                      disabled={calendarAdded}
+                      className="w-full flex items-center justify-center rounded-full font-bold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 px-4 py-2.5 text-xs border border-cyan-400/30 bg-cyan-400/10 text-cyan-100 hover:bg-cyan-400/20 disabled:opacity-60 disabled:cursor-not-allowed"
                     >
-                      Add Booking to Calendar
+                      {calendarAdded ? (
+                        <>
+                          <Check className="h-3 w-3 mr-1.5 text-emerald-400" />
+                          Added to Calendar
+                        </>
+                      ) : (
+                        "Add Booking to Calendar"
+                      )}
                     </button>
 
                     <a
