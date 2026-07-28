@@ -9,7 +9,7 @@
 
 import { use } from "react";
 import Link from "next/link";
-import { ArrowLeft, ShieldCheck } from "lucide-react";
+import { ArrowLeft, ShieldCheck, LayoutDashboard } from "lucide-react";
 import { DashboardShell } from "@/app/components/dashboard-shell";
 import { BreadcrumbOverflow } from "@/app/components/ui/breadcrumb-overflow";
 import { StatusChip } from "@/components/dashboard/status-chip";
@@ -57,7 +57,7 @@ export default function SharedReceiptPage({ params, searchParams }: SharedReceip
           <BreadcrumbOverflow
             className="relative"
             items={[
-              { label: "Dashboard", href: "/dashboard" },
+              { label: "Dashboard", href: "/dashboard", icon: <LayoutDashboard className="h-4 w-4" /> },
               { label: "Slots", href: "/dashboard/slots" },
               { label: "Receipt" },
             ]}

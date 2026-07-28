@@ -140,6 +140,28 @@ export default function DesignReviewPage() {
               </div>
             </div>
 
+            <Link
+              href="/design-review/focus-trap"
+              className="block"
+            >
+              <div className="rounded-2xl border border-cyan-500/20 bg-cyan-500/5 p-5 hover:bg-cyan-500/10 transition-colors">
+                <div className="flex items-center gap-3">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/20 text-cyan-300">
+                    <span className="text-lg font-bold">T</span>
+                  </span>
+                  <div>
+                    <h3 className="text-sm font-semibold text-white">Focus Trap Tester</h3>
+                    <p className="text-xs text-slate-400 mt-0.5">
+                      Automated tab-cycle verification for every modal and overlay
+                    </p>
+                  </div>
+                  <span className="ml-auto text-xs font-medium text-cyan-400">
+                    Test →
+                  </span>
+                </div>
+              </div>
+            </Link>
+
             <div className="space-y-6">
               <h2 className="text-xl font-semibold text-slate-200 flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-purple-500" />

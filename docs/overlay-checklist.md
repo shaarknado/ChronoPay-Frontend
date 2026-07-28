@@ -87,3 +87,44 @@ Tooltips use a built-in placement engine (no external library) in
 | Focus | Tooltip itself is never focusable |
 | Touch | `touchstart` toggles; outside `mousedown` closes |
 | Icon | `aria-hidden="true"` on the `<Info>` icon |
+
+---
+
+## 🔬 Focus Trap Tester Harness
+
+A design-review page at `/design-review/focus-trap` provides automated tab-cycle verification for every overlay in the app.
+
+**Location:** `src/app/design-review/focus-trap/page.tsx`
+**Component:** `src/components/design/focus-trap-tester.tsx`
+
+### What it tests
+
+1. **Tab cycle** — pressing Tab on the last focusable element wraps focus back to the first.
+2. **Shift+Tab cycle** — pressing Shift+Tab on the first focusable element wraps focus back to the last.
+3. **Focus on mount** — focus is placed inside the trap when the overlay opens.
+4. **First offending element** — reports the tag name and text content of the element that broke the cycle.
+
+### Overlays covered
+
+| Overlay | Source | Trap type |
+|---|---|---|
+| FocusTrap (Base) | `src/components/common/FocusTrap.tsx` | FocusTrap component |
+| WalletConnectModal | `src/components/dashboard/WalletConnectModal.tsx` | FocusTrap component |
+| RefundConfirmationModal | `src/components/dashboard/refund-confirmation-modal.tsx` | FocusTrap component |
+| CalendarSyncConflictModal | `src/components/dashboard/settings/calendar-sync-conflict-modal.tsx` | FocusTrap component |
+| ReceiptModal | `src/components/receipt/ReceiptModal.tsx` | FocusTrap component |
+| OnboardingWalkthrough | `src/components/dashboard/onboarding-walkthrough.tsx` | Inline trap |
+
+### Usage
+
+1. Navigate to `/design-review/focus-trap`.
+2. Click **Open + Test focus trap** on any overlay card.
+3. The modal opens and the automated test runs.
+4. Results show pass/fail for each check and the first offending element if any.
+
+### Adding a new overlay
+
+To add a new overlay to the tester, edit `src/components/design/focus-trap-tester.tsx`:
+
+1. Create a test modal component (mirroring the real overlay's focusable-element structure).
+2. Add an entry to the `overlayEntries` array with the overlay's metadata and render function.

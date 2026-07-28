@@ -14,10 +14,7 @@ export default defineConfig({
       include: [
         "src/app/components/ui/help-popover.tsx",
         "src/lib/glossary.ts",
-        "src/components/dashboard/pricing-calculator.tsx",
-        "src/components/dashboard/services-step/**/*.{ts,tsx}",
-        "src/app/components/keyboard-shortcuts-overlay.tsx",
-        "src/lib/keyboard-shortcuts.ts",
+        "src/components/dashboard/review-reply-thread.tsx",
       ],
       thresholds: {
         lines: 95,

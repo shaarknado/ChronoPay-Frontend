@@ -23,7 +23,8 @@ import {
   Sparkles,
   Check,
   Receipt,
-  Users
+  Users,
+  LayoutDashboard
 } from "lucide-react";
 
 function FocusTrap({ children }: { children: React.ReactNode }) {
@@ -307,7 +308,7 @@ export default function SlotDetailPage({
           <BreadcrumbOverflow
             className="relative"
             items={[
-              { label: "Dashboard", href: "/dashboard" },
+              { label: "Dashboard", href: "/dashboard", icon: <LayoutDashboard className="h-4 w-4" /> },
               { label: "Slots", href: "/dashboard/slots" },
               { label: "Booking", href: "/dashboard/slots/123" },
               { label: "Details" },

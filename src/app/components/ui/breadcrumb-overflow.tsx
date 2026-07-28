@@ -7,6 +7,7 @@ import { ChevronRight, MoreHorizontal } from "lucide-react";
 type BreadcrumbItem = {
   label: string;
   href?: string;
+  icon?: React.ReactNode;
 };
 
 type BreadcrumbOverflowProps = {
@@ -82,7 +83,10 @@ export function BreadcrumbOverflow({ items, className }: BreadcrumbOverflowProps
     return (
       <nav aria-label="Breadcrumb" className={className}>
         <ol className="flex flex-wrap items-center gap-2 text-sm">
-          <li className="text-slate-200">{items[0].label}</li>
+          <li className="flex items-center gap-1.5 text-slate-200">
+            {items[0].icon && <span aria-hidden="true" className="inline-flex items-center">{items[0].icon}</span>}
+            <span>{items[0].label}</span>
+          </li>
         </ol>
       </nav>
     );
@@ -126,14 +130,16 @@ export function BreadcrumbOverflow({ items, className }: BreadcrumbOverflowProps
                             <Link
                               href={overflowItem.href}
                               role="menuitem"
-                              className="block rounded-lg px-3 py-2 text-sm text-slate-200 hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
+                              className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-200 hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
                               onClick={() => setIsOpen(false)}
                             >
-                              {overflowItem.label}
+                              {overflowItem.icon && <span aria-hidden="true" className="inline-flex items-center">{overflowItem.icon}</span>}
+                              <span>{overflowItem.label}</span>
                             </Link>
                           ) : (
-                            <span className="block rounded-lg px-3 py-2 text-sm text-slate-400">
-                              {overflowItem.label}
+                            <span className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-400">
+                              {overflowItem.icon && <span aria-hidden="true" className="inline-flex items-center">{overflowItem.icon}</span>}
+                              <span>{overflowItem.label}</span>
                             </span>
                           )}
                         </div>
@@ -147,13 +153,15 @@ export function BreadcrumbOverflow({ items, className }: BreadcrumbOverflowProps
                   {item.href && !isLast ? (
                     <Link
                       href={item.href}
-                      className="rounded-full px-2.5 py-1 text-sm font-medium text-slate-300 transition hover:bg-slate-900 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
+                      className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-sm font-medium text-slate-300 transition hover:bg-slate-900 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
                     >
-                      {item.label}
+                      {item.icon && <span aria-hidden="true" className="inline-flex items-center">{item.icon}</span>}
+                      <span>{item.label}</span>
                     </Link>
                   ) : (
-                    <span className={isLast ? "font-semibold text-white" : "text-slate-300"}>
-                      {item.label}
+                    <span className={`inline-flex items-center gap-1.5 ${isLast ? "font-semibold text-white" : "text-slate-300"}`}>
+                      {item.icon && <span aria-hidden="true" className="inline-flex items-center">{item.icon}</span>}
+                      <span>{item.label}</span>
                     </span>
                   )}
                   {!isLast && <ChevronRight className="h-4 w-4 text-slate-500" aria-hidden="true" />}
